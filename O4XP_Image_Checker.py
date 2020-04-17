@@ -1,20 +1,20 @@
 import pathlib
 import glob
 import os
-from PIL import Image
+import numpy as np
+import cv2
 import multiprocessing
 from multiprocessing import Pool
 import time
 
 # Function to check each pixel of a jpg file to identify any pixels that is completely white.
 def has_white_rects(img_path):
-	img = Image.open(img_path).convert('RGB')
-	w,h = img.size
+	img = cv2.imread(img_path)
+	w, h, depth = img.shape
 
 	last_rows = []
 
-	for i in range(w):
-
+	for i in range(w):        
 		if len(last_rows) > 2:
 			r1s, r1e = last_rows[i-2]
 			r2s, r2e = last_rows[i-1]
@@ -27,9 +27,11 @@ def has_white_rects(img_path):
 		row_start = h
 		row_end = 0
 		detected_white = False
-
+		
 		for j in range(h):
-			r,g,b = img.getpixel((i,j))
+			r = img.item(i, j, 0)
+			g = img.item(i, j, 1)
+			b = img.item(i, j, 2)
 			if r >= 255 and g >= 255 and b >= 255:
 				detected_white = True
 				if j < row_start:
@@ -42,12 +44,13 @@ def has_white_rects(img_path):
 
 	return False
 
+delete_file = False
+
 # Function to crawl each directory and subdirectory to check each file against has_white_rects function
 def work(path):
-	global delete_file
 	print ('PROCESSING IMAGE: ' + str(path))
 	print ('delete file== ' + str(delete_file))
-	if has_white_rects(path):
+	if has_white_rects(str(path)):
 		# Log the file.
 		f = open("checker_log.txt", "a")
 		wrt = str(path)+'\n'
@@ -82,9 +85,15 @@ def main():
 	path = pathlib.Path().absolute()
 	for z in path.rglob('*.jpg'):
 		image_files.append(z)
+	for z in path.rglob('*.jpeg'):
+		image_files.append(z)
 
 	print ('All corrupt jpg files will be listed in checker_log.txt file.')
 	time.sleep(5)
+
+	# for image_file in image_files:
+	# 	work(image_file)
+	# return
 
 	# Set up multiprocessing to be equal of the logical CPU unit count for better effeciency.
 	workers = int(os.cpu_count())
@@ -93,7 +102,6 @@ def main():
 		p.close()
 		p.join()
 		print("ALL FILES CHECKED.")
-
 
 if __name__ == "__main__":
 	main()
