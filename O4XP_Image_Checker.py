@@ -44,18 +44,21 @@ def has_white_rects(img_path):
 
 # Function to crawl each directory and subdirectory to check each file against has_white_rects function
 def work(path):
-	print ('Processing file: ' + str(path))
+	global delete_file
+	print ('PROCESSING IMAGE: ' + str(path))
+	print ('delete file== ' + str(delete_file))
 	if has_white_rects(path):
-		if delete_file: print('----------FOUND BAD JPEG | DELETED ----------')
-		else: print('----------FOUND BAD JPEG | LOGGED ----------')
-		print (path)
-		print('---------------------------------****-------')
-		if delete_file: os.remove(path)
-		# Also to log file paths of each bad jpegs.
+		# Log the file.
 		f = open("checker_log.txt", "a")
 		wrt = str(path)+'\n'
 		f.write(wrt)
 		f.close()
+		if delete_file == 1:
+			os.remove(path)
+			print('CORRUPT IMAGE LOGGED & DELETED: ' + str(path))
+		if delete_file == 0:
+			print('CORRUPT IMAGE LOGGED: ' + str(path))
+
 
 def main():
 	# Ask the user if they wish to delete the bad jpg also
@@ -72,6 +75,7 @@ def main():
 		delete_file = 1;
 	else:
 		delete_file = 0;
+	print(delete_file)
 
 	# Craft a list of each jpg files to be checked.
 	image_files = []
