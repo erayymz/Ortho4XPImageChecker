@@ -49,7 +49,6 @@ delete_file = False
 # Function to crawl each directory and subdirectory to check each file against has_white_rects function
 def work(path):
     print ('PROCESSING IMAGE: ' + str(path))
-    print ('delete file== ' + str(delete_file))
     if has_white_rects(str(path)):
         # Log the file.
         f = open("checker_log.txt", "a")
@@ -78,7 +77,6 @@ def main():
         delete_file = 1;
     else:
         delete_file = 0;
-    print(delete_file)
 
     # Craft a list of each jpg files to be checked.
     image_files = []
