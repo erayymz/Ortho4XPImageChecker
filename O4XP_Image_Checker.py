@@ -44,11 +44,9 @@ def has_white_rects(img_path):
 
     return False
 
-delete_file = None
-
 #Function to crawl each directory and subdirectory to check each file against has_white_rects function
-def work(path):
-    global delete_file
+def work(args):
+    path, delete_file = args
     print ('VALUE OF DF = ' + str(delete_file))
     print ('PROCESSING IMAGE: ' + str(path))
     if has_white_rects(str(path)):
@@ -64,7 +62,7 @@ def work(path):
             print('CORRUPT IMAGE LOGGED: ' + str(path))
 
 def main():
-    global delete_file
+    delete_file = None
     acceptable_input_list = ['yes','no']
 
     cpu_count = int(os.cpu_count())
@@ -111,6 +109,8 @@ def main():
     path = pathlib.Path().absolute()
     for z in path.rglob('*.jpg'):
         image_files.append(z)
+    for z in path.rglob('*.jpeg'):
+        image_files.append(z)
 
     file_count = len(image_files)
     time_estimate = round(((file_count*2.5)/workers)/60)
@@ -127,7 +127,7 @@ def main():
 
     # Set up multiprocessing.
     with Pool(workers) as p:
-        p.imap_unordered(work, image_files)
+        p.imap_unordered(work, (image_files, delete_file))
         p.close()
         p.join()
         print("All image files have been checked.")
