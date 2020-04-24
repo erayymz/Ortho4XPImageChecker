@@ -33,5 +33,5 @@ The script will generate a log file, `checker_log.txt` within the same folder it
 The script can delete bad image files as it finds them. It will prompt you to make that choice in the very beggining. If you do not chose to delete the files, you can then locate them later using the paths recorded in the log file. Please be aware that the script will only delete the ortho image file, not the DDS file. If you wish to also delete the corrospanding DDS file, you will have to do that manually.
 
 ## Contributors
-Eray Yilmaz - https://github.com/erayymz
-Beau Albiston - https://github.com/beauzo
+* Eray Yilmaz - https://github.com/erayymz
+* Beau Albiston - https://github.com/beauzo
