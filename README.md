@@ -6,13 +6,13 @@ Have you ever downloaded and converted gigabytes worth of ortho images only to f
 
 * You need minimum Python3 to run this script. There are many documentation online how to get and install it for all the operating systems. So, get Python3 first.
 * This script depends on couple libraries. There are two ways to install those libraries:
-1. Using pip (python package manager) is the easiest method. Simply run the following command using command line or terminal (depending your operating system) within the root folder 'Ortho4XPImageChecker'
+1. Using pip (python package manager) is the easiest method. Simply run the following command using command line or terminal (depending your operating system) within the root folder `Ortho4XPImageChecker`
 `pip install -r requirements`
 1. You can also install required libraries manually. If you wish to do so, just look at the requirements.txt file within where you can find the list of requirements.
 
 ## Running
 Running this script is quite straight forward. The script is already configured to look for ortho jpg files within the folder it resides.
-1. Copy and paste the 'O4XP_Image_Checker.py' file into the root orthophoto folder 'X:\Ortho4XP\Orthophotos'. Orthophotos folder is located within the Ortho4XP root directory and contains all orthophoto images that Ortho4XP downloads before converting them.
+1. Copy and paste the `O4XP_Image_Checker.py` file into the root orthophoto folder `X:\Ortho4XP\Orthophotos`. Orthophotos folder is located within the Ortho4XP root directory and contains all orthophoto images that Ortho4XP downloads before converting them.
 1. Execute the following in comand line or terminal (depending your operating system) in the Orthophotos folder where you just copied the script file to.
 ```
 python O4XP_Image_Checker.py
@@ -27,7 +27,7 @@ The script will show you the number of logical cores it identified, and ask you 
 On average, it takes about 2 seconds to check one file. So if the script determined, lets say, you have 8 logical cores, then you expect to check about 8 total files in 2 second window.
 
 ## Logging
-The script will generate a log file, 'c'hecker_log.txt' within the same folder it is executed. The log file will only contain the path of images that contain white pixels. Good image files are not logged to this file to prevent confusion.
+The script will generate a log file, `checker_log.txt` within the same folder it is executed. The log file will only contain the path of images that contain white pixels. Good image files are not logged to this file to prevent confusion.
 
 ## Deleting Image Files
 The script can delete bad image files as it finds them. It will prompt you to make that choice in the very beggining. If you do not chose to delete the files, you can then locate them later using the paths recorded in the log file. Please be aware that the script will only delete the ortho image file, not the DDS file. If you wish to also delete the corrospanding DDS file, you will have to do that manually.
