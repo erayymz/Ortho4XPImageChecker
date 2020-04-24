@@ -5,6 +5,7 @@ import numpy as np
 import cv2
 import multiprocessing
 from multiprocessing import Pool
+from functools import partial
 import time
 
 # Function to check each pixel of a jpg file to identify any pixels that is completely white.
@@ -45,10 +46,11 @@ def has_white_rects(img_path):
     return False
 
 #Function to crawl each directory and subdirectory to check each file against has_white_rects function
-def work(args):
-    path, delete_file = args
+def work(path, delete_file):
+    
     print ('VALUE OF DF = ' + str(delete_file))
     print ('PROCESSING IMAGE: ' + str(path))
+
     if has_white_rects(str(path)):
         # Log the file.
         f = open("checker_log.txt", "a")
@@ -68,7 +70,7 @@ def main():
     cpu_count = int(os.cpu_count())
 
     user_input_1 = '';
-    print ('------------------------------------------------------------------------------------------------------------------------------')
+    print ('-'*120)
     print ('I have determined there are ' + str(cpu_count) + ' available logical cores.')
 
     while user_input_1 not in acceptable_input_list:
@@ -83,7 +85,7 @@ def main():
         print ('')
         print ('I will run at 1/3rd capacity. Using only ' + str(workers) + ' logical cores out of total ' + str(cpu_count))
         print ('This will be slower however other applications can be run without perfoirmance degradation.')
-        print ('------------------------------------------------------------------------------------------------------------------------------')
+        print ('-'*120)
         print ('')
 
     # Ask the user if they wish to delete the bad jpg also
@@ -93,9 +95,9 @@ def main():
 
     if user_input_2 == "yes":
         print ('')
-        print ('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print ('!'*74)
         print ('Any jpg files containing white space will be deleted without confirmation!')
-        print ('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        print ('!'*74)
         print ('')
         delete_file = True;
     else:
@@ -117,7 +119,7 @@ def main():
     if time_estimate <= 0:
         time_estimate = "less than one"
 
-    print ('------------------------------------------------------------------------------------------------------------------------------')
+    print ('-'*120)
     print ('There are ' + str(file_count) + ' image files to check.')
     print ('This operation will take approximately ' + str(time_estimate) + ' minute(s).')
     print ('Starting in five seconds >>>>>')
@@ -127,19 +129,18 @@ def main():
 
     # Set up multiprocessing.
     with Pool(workers) as p:
-        p.imap_unordered(work, (image_files, delete_file))
-        p.close()
-        p.join()
-        print("All image files have been checked.")
+        p.map(partial(work, delete_file=delete_file), image_files)
+
+    print("All image files have been checked.")
 
     end = time.time()
     time_elapsed = round((end - start) / 60)
     if time_elapsed <= 0:
         time_elapsed = "less than one"
 
-    print ('------------------------------------------------------------------------------------------------------------------------------')
+    print ('-'*120)
     print ('It took ' + str(time_elapsed) + ' minute(s) to check ' + str(file_count) + ' image files.')
-    print ('------------------------------------------------------------------------------------------------------------------------------')
+    print ('-'*120)
 
 if __name__ == "__main__":
     main()
