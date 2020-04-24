@@ -24,7 +24,7 @@ The script uses parallel processes to check as many images as quickly as possibl
 
 The script will show you the number of logical cores it identified, and ask you if you wish to run it at full capacity meaning using all the available CPU cores. You can say yes or no. If you say yes, it will use all available logical cores. If you say no, it will use 1/3 of the available cores, thus leaving some CPU bandwith for other applications to run. If you want to use your computer while this script is running, then do not run it at full capacity.
 
-On average, it takes about 2 seconds to check one file. So if the script determined, lets say, you have 8 logical cores, then you expect to check about 8 total files in 2 second window.
+On average, it takes about 2.5 seconds to check one file. So if the script determined, lets say, you have 8 logical cores, then you expect to check about 8 total files in 2.5 second window.
 
 ## Logging
 The script will generate a log file, `checker_log.txt` within the same folder it is executed. The log file will only contain the path of images that contain white pixels. Good image files are not logged to this file to prevent confusion.
