@@ -45,7 +45,7 @@ def has_white_rects(img_path):
     return False
 
 #Function to crawl each directory and subdirectory to check each file against has_white_rects function
-def work(args, delete_file):
+def work(args):
     path, delete_file = args
     print ('VALUE OF DF = ' + str(delete_file))
     print ('PROCESSING IMAGE: ' + str(path))
