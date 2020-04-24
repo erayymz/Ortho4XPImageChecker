@@ -46,8 +46,9 @@ def has_white_rects(img_path):
 
 delete_file = None
 
-# Function to crawl each directory and subdirectory to check each file against has_white_rects function
+#Function to crawl each directory and subdirectory to check each file against has_white_rects function
 def work(path):
+    global delete_file
     print ('PROCESSING IMAGE: ' + str(path))
     if has_white_rects(str(path)):
         # Log the file.
@@ -55,7 +56,6 @@ def work(path):
         wrt = str(path)+'\n'
         f.write(wrt)
         f.close()
-        global delete_file
         if delete_file == True:
             #os.remove(path)
             print('CORRUPT IMAGE LOGGED & DELETED: ' + str(path))
