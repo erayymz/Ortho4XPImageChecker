@@ -49,6 +49,7 @@ delete_file = None
 #Function to crawl each directory and subdirectory to check each file against has_white_rects function
 def work(path):
     global delete_file
+    print ('VALUE OF DF = ' + str(delete_file))
     print ('PROCESSING IMAGE: ' + str(path))
     if has_white_rects(str(path)):
         # Log the file.
@@ -62,8 +63,8 @@ def work(path):
         else:
             print('CORRUPT IMAGE LOGGED: ' + str(path))
 
-
 def main():
+    global delete_file
     acceptable_input_list = ['yes','no']
 
     cpu_count = int(os.cpu_count())
@@ -91,6 +92,7 @@ def main():
     user_input_2 = '';
     while user_input_2 not in acceptable_input_list:
         user_input_2 = input("Do you wish to DELETE corrupt jpg files automatically? (yes/no)").lower()
+
     if user_input_2 == "yes":
         print ('')
         print ('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
@@ -101,6 +103,8 @@ def main():
     else:
         print ('')
         delete_file = False;
+
+    print ('VALUE OF DF = ' + str(delete_file))
 
     # Craft a list of each jpg files to be checked.
     image_files = []
