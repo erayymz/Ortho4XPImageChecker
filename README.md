@@ -14,10 +14,8 @@ Have you ever downloaded and converted gigabytes worth of ortho images only to f
 Running this script is quite straight forward. The script is already configured to look for ortho jpg files within the folder it resides.
 1. Copy and paste the `O4XP_Image_Checker.py` file into the root orthophoto folder `X:\Ortho4XP\Orthophotos`. Orthophotos folder is located within the Ortho4XP root directory and contains all orthophoto images that Ortho4XP downloads before converting them.
 1. Execute the following in comand line or terminal (depending your operating system) in the Orthophotos folder where you just copied the script file to.
-```
-python O4XP_Image_Checker.py
-```
-1. Follow the in screen instructions.
+`python O4XP_Image_Checker.py`
+1. Then simply follow the in screen instructions.
 
 ## Performance
 The script uses parallel processes to check as many images as quickly as possible. Thus, it will attempt to use all logical cores in your CPU. The advantage of this is that it will ran very fast. The disadvantage however it will bog down your system enough where you wont be able to use any other application while you are running this script. Thus you have two options selecting the performance settings:
